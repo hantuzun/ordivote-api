@@ -1,0 +1,161 @@
+{
+  "version": "5",
+  "dialect": "mysql",
+  "id": "5441cbce-5a08-4777-bae8-ea6a518a6c39",
+  "prevId": "da87d31a-a2f8-4679-ab13-6afb960f9fbd",
+  "tables": {
+    "balance": {
+      "name": "balance",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "address": {
+          "name": "address",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "amount": {
+          "name": "amount",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "brc20_ticker": {
+          "name": "brc20_ticker",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "balance_brc20_ticker_brc20_ticker_fk": {
+          "name": "balance_brc20_ticker_brc20_ticker_fk",
+          "tableFrom": "balance",
+          "tableTo": "brc20",
+          "columnsFrom": [
+            "brc20_ticker"
+          ],
+          "columnsTo": [
+            "ticker"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "balance_id": {
+          "name": "balance_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "bitcoin_block": {
+      "name": "bitcoin_block",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(64)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "height": {
+          "name": "height",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "block_hash_index": {
+          "name": "block_hash_index",
+          "columns": [
+            "id"
+          ],
+          "isUnique": false
+        },
+        "block_height_index": {
+          "name": "block_height_index",
+          "columns": [
+            "height"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "bitcoin_block_id": {
+          "name": "bitcoin_block_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "brc20": {
+      "name": "brc20",
+      "columns": {
+        "ticker": {
+          "name": "ticker",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "block_height": {
+          "name": "block_height",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "brc20_block_height_bitcoin_block_height_fk": {
+          "name": "brc20_block_height_bitcoin_block_height_fk",
+          "tableFrom": "brc20",
+          "tableTo": "bitcoin_block",
+          "columnsFrom": [
+            "block_height"
+          ],
+          "columnsTo": [
+            "height"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "brc20_ticker": {
+          "name": "brc20_ticker",
+          "columns": [
+            "ticker"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    }
+  },
+  "schemas": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  }
+}

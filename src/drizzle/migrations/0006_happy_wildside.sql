@@ -1,0 +1,1 @@
+ALTER TABLE `balance` MODIFY COLUMN `amount` bigint NOT NULL;

@@ -1,0 +1,55 @@
+{
+  "version": "5",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1694387739311,
+      "tag": "0000_brief_jigsaw",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1694387768256,
+      "tag": "0001_lame_wither",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1694387835516,
+      "tag": "0002_brief_doorman",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1694387892182,
+      "tag": "0003_heavy_legion",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1694388389936,
+      "tag": "0004_big_rockslide",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1694440493652,
+      "tag": "0005_late_maggott",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1694444428760,
+      "tag": "0006_happy_wildside",
+      "breakpoints": true
+    }
+  ]
+}

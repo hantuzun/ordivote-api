@@ -1,0 +1,156 @@
+{
+  "version": "5",
+  "dialect": "mysql",
+  "id": "d8dac82a-f223-4138-a024-9df1187e8349",
+  "prevId": "c5fc536e-2aa6-4efd-a7ad-1e9a30d02595",
+  "tables": {
+    "balance": {
+      "name": "balance",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "address": {
+          "name": "address",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "amount": {
+          "name": "amount",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "ticker": {
+          "name": "ticker",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "block_height": {
+          "name": "block_height",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "address_index": {
+          "name": "address_index",
+          "columns": [
+            "address"
+          ],
+          "isUnique": false
+        },
+        "block_height_index": {
+          "name": "block_height_index",
+          "columns": [
+            "block_height"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "balance_id": {
+          "name": "balance_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "block": {
+      "name": "block",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(64)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "height": {
+          "name": "height",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "block_hash_index": {
+          "name": "block_hash_index",
+          "columns": [
+            "id"
+          ],
+          "isUnique": false
+        },
+        "block_height_index": {
+          "name": "block_height_index",
+          "columns": [
+            "height"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "block_id": {
+          "name": "block_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "globals": {
+      "name": "globals",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "minimumNotMinedRequestedBlockHeight": {
+          "name": "minimumNotMinedRequestedBlockHeight",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 2147483647
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "globals_id": {
+          "name": "globals_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    }
+  },
+  "schemas": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  }
+}
