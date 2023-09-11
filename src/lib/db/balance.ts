@@ -40,8 +40,13 @@ export async function getCurrentBalanceWithTickerAndAddress(ticker: string, addr
     .orderBy(desc(schema.balance.blockHeight))
     .limit(1)
   if (records.length === 0) {
-    return null
+    return {
+      address,
+      amount: 0,
+      ticker,
+    }
   }
+
   return { address: records[0].address, amount: records[0].amount, ticker: records[0].ticker }
 }
 
@@ -57,9 +62,15 @@ export async function getBalanceAtBlockHeightWithTickerAndAddress(ticker: string
     )
     .orderBy(desc(schema.balance.blockHeight))
     .limit(1)
+
   if (records.length === 0) {
-    return null
+    return {
+      address,
+      amount: 0,
+      ticker,
+    }
   }
+
   return { address: records[0].address, amount: records[0].amount, ticker: records[0].ticker }
 }
 
@@ -86,30 +97,20 @@ export async function updateBalances(blockHeight: number) {
   const blockEventsResponse = await getBlockEvents(blockHeight)
   const eventMap = balanceMapFromOKXOrdNodeEvents(blockEventsResponse.data.events)
   let oldBalanceQueries: any[] = []
-  let oldBalanceQueryInfo: any[] = []
   Object.keys(eventMap).forEach((address) => {
     Object.keys(eventMap[address]).forEach((ticker) => {
-      oldBalanceQueries.push(getBalanceAtBlockHeightWithTickerAndAddress(ticker, address, blockHeight))
-      oldBalanceQueryInfo.push({ ticker, address })
+      oldBalanceQueries.push(getCurrentBalanceWithTickerAndAddress(ticker, address))
     })
   })
   const oldBalances = await Promise.all(oldBalanceQueries)
 
   let newBalances: { ticker: string; address: string; amount: number }[] = []
-  oldBalances.forEach((oldBalance, index) => {
-    if (oldBalance === null) {
-      newBalances.push({
-        ticker: oldBalanceQueryInfo[index].ticker,
-        address: oldBalanceQueryInfo[index].address,
-        amount: eventMap[oldBalanceQueryInfo[index].address][oldBalanceQueryInfo[index].ticker],
-      })
-    } else {
-      newBalances.push({
-        ticker: oldBalance.ticker,
-        address: oldBalance.address,
-        amount: oldBalance.amount + eventMap[oldBalance.address][oldBalance.ticker],
-      })
-    }
+  oldBalances.forEach((oldBalance) => {
+    newBalances.push({
+      ticker: oldBalance.ticker,
+      address: oldBalance.address,
+      amount: oldBalance.amount + eventMap[oldBalance.address][oldBalance.ticker],
+    })
   })
   await bulkInsertNewBalance(newBalances, blockHeight)
 }
